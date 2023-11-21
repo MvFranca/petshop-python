@@ -71,25 +71,38 @@ class ReporEstoque:
 
     def escolhaReposicao(self):
         
-        escolhaServer = int(input("\nO que deseja fazer?\n1.Adicionar um novo item ao estoque\n2.Atualizar quantidade de um item\n3.Excluir item do estoque\n"))
+        while True:
 
-        if(escolhaServer == 1):
-            itemAdicionado = int( input("Você irá adicionar um novo:\n1.Cachorro\n2.Gato\n3.Pássaro\n4.Produto\n5.Sair"))
-            self.adicionarItemEstoque(itemAdicionado)
+            escolhaServer = int(input("\nO que deseja fazer?\n1.Adicionar um novo item ao estoque\n2.Atualizar quantidade de um item\n3.Excluir item do estoque\n"))
 
-        elif(escolhaServer == 2):
-            escolhaReposicao = int(input("Reponha o estoque de um dos seguintes recursos:\n1.Animais\n2.Produtos\n"))
+            if(escolhaServer == 1):
 
-            if(escolhaReposicao == 1):
+                itemAdicionado = int( input("Você irá adicionar um novo:\n1.Cachorro\n2.Gato\n3.Pássaro\n4.Produto\n5.Sair"))
 
-                reposicaoAnimais = int(input("Reponha o estoque de um dos seguintes animais:\n1.Cães\n2.Gatos\n3.Pássaros\n"))
+                if(itemAdicionado > 5 | itemAdicionado < 1):
+                    return print("Opção inválida!")
 
-                if(reposicaoAnimais == 1):
-                    self.reposicaoAnimal("estoqueCaes.csv", 'a')
-                elif(reposicaoAnimais == 2):
-                    self.reposicaoAnimal("estoqueGatos.csv", 'a')
-                elif(reposicaoAnimais == 3):
-                    self.reposicaoAnimal("estoquePassaros.csv", 'a')
+                else:
+                    self.adicionarItemEstoque(itemAdicionado)
+                    break
 
-            elif(escolhaReposicao == 2):
-                self.reposicaoAnimal("estoqueProdutos.csv", 'p')    
+            elif(escolhaServer == 2):
+                escolhaReposicao = int(input("Reponha o estoque de um dos seguintes recursos:\n1.Animais\n2.Produtos\n"))
+
+                if(escolhaReposicao == 1):
+
+                    reposicaoAnimais = int(input("Reponha o estoque de um dos seguintes animais:\n1.Cães\n2.Gatos\n3.Pássaros\n"))
+
+                    if(reposicaoAnimais == 1):
+                        self.reposicaoAnimal("estoqueCaes.csv", 'a')
+                    elif(reposicaoAnimais == 2):
+                        self.reposicaoAnimal("estoqueGatos.csv", 'a')
+                    elif(reposicaoAnimais == 3):
+                        self.reposicaoAnimal("estoquePassaros.csv", 'a')
+
+                elif(escolhaReposicao == 2):
+                    self.reposicaoAnimal("estoqueProdutos.csv", 'p')
+                break
+
+            elif(escolhaServer == 3):
+                print("excluindo aqui...")

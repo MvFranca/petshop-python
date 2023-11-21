@@ -23,7 +23,15 @@ class user:
         for i in listaUsers:
             nome, cpf, idade, numero_telefone, cidade = i.split(",")
             
-            if(self.cpf == cpf):
+            usuario = {
+                "nome": nome,
+                "cpf": cpf,
+                "idade": idade,
+                "numero_telefone": numero_telefone,
+                "cidade": cidade
+            }
+
+            if(self.cpf == usuario['cpf']):
                 return print("Usuário já cadastrado!")
 
         self.cadastrado = True
