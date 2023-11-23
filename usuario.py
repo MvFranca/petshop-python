@@ -1,39 +1,38 @@
 class user:
     def __init__(self):
-       
        self.nomeDono = ''
        self.cpf = ''
+       self.senha = ''
        self.idadeDono = ''
        self.celular = ''
        self.cidade = ''
+       self.listaUsers = [] * 200
        self.cadastrado = False
 
     def verificacao(self, userAdd):
-
-        listaUsers = [] * 200
-
         with open("clientes.txt", "r", encoding="utf-8") as arquivo:
             c = arquivo.readlines()
         
-
         for i in c: 
             cliente = i.replace("\n", "") 
-            listaUsers.append(cliente)  
+            self.listaUsers.append(cliente)  
 
-        for i in listaUsers:
-            nome, cpf, idade, numero_telefone, cidade = i.split(",")
+        for i in self.listaUsers:
+            nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
             
             usuario = {
                 "nome": nome,
                 "cpf": cpf,
                 "idade": idade,
                 "numero_telefone": numero_telefone,
-                "cidade": cidade
+                "cidade": cidade,
+                "senha": senha
             }
 
             if(self.cpf == usuario['cpf']):
                 return print("Usuário já cadastrado!")
 
+        
         self.cadastrado = True
         self.addClientes(userAdd)
         
@@ -46,21 +45,37 @@ class user:
 
     def cadastrar(self):
 
-        nome = input("Digite seu nome: ")
-        idade = input("Digite sua idade: ")
-        cpf = input("Digite seu cpf: ")
-        celular = input("Digite seu celular: ")
-        cidade = input("Digite sua cidade: ")
+        self.nomeDono = input("Digite seu nome: ")
+        self.idade = input("Digite sua idade: ")
+        self.cpf = input("Digite seu cpf: ")
+        self.celular = input("Digite seu celular: ")
+        self.cidade = input("Digite sua cidade: ")
+        self.senha = input("Digite sua senha: ")
 
-        self.nomeDono = nome
-        self.idade = idade
-        self.celular = celular
-        self.cidade = cidade
-        self.cpf = cpf
-
-        userAdd = f"\n{nome},{cpf},{idade},{celular},{cidade}"
+        userAdd = f"\n{self.nomeDono},{self.cpf},{self.idade},{self.celular},{self.cidade},{self.senha}"
         self.verificacao(userAdd)
 
+    def login(self):
+        
+        self.cpf = input("Digite seu cpf:\n")
+        self.senha = input("Digite sua senha:\n")
+
+        with open("clientes.txt", "r", encoding="utf-8") as arquivo:
+            c = arquivo.readlines()
+        
+        for i in c: 
+            cliente = i.replace("\n", "") 
+            self.listaUsers.append(cliente)  
+
+        for i in self.listaUsers:
+            nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
+            print(f"\ncpf: {cpf}\n")
+            if(cpf == self.cpf and senha == self.senha):
+                self.cadastrado = True
+                break
+            else:
+                print("\nDados incorretos!\n")
+                break
         
 
     
