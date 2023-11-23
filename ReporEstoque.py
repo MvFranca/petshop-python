@@ -20,7 +20,6 @@ class ReporEstoque:
 
         for i in self.receita:
             ganhos, gastos, lucro = i.split(",")
-        
 
         atualizacao = f"{ganhos},{int(gastos) + valor},{int(ganhos) - (int(gastos) + valor)}"
         
@@ -48,6 +47,7 @@ class ReporEstoque:
 
     def adicionarItemEstoque(self, escolha):
 
+        
         if(escolha == 1):
             estoque = "estoqueCaes.csv"
         elif(escolha == 2):
@@ -61,8 +61,24 @@ class ReporEstoque:
         self.valorNovoItem = input(f"Digite o valor d@ {self.nomeNovoItem}: \n")
         self.quantidadeNovoItem = input(f"Digite a quantidade que será adicionada ao estoque: \n")
 
+        with open(estoque, "r", encoding="utf-8") as arquivo:
+            c = arquivo.readlines()
+        
+        for i in c: 
+            cliente = i.replace("\n", "") 
+            self.listaEstoque.append(cliente)  
+
+        for i in self.listaEstoque:
+            nome, valor, quantidade = i.split(",")
+        
+        novoItem = f"\n{self.nomeNovoItem},{self.valorNovoItem},{self.quantidadeNovoItem}"
+        
+        with open(estoque, "a", encoding="utf-8") as arquivo:
+            arquivo.write(novoItem)  
+
         gasto = round((int(self.valorNovoItem)/2) * int(self.quantidadeNovoItem))
         self.gastos(gasto)
+
 
 
     def animalSelecionado(self, animalSelecionado, caminho):
@@ -113,7 +129,6 @@ class ReporEstoque:
             escolhaServer = int(input("\nO que deseja fazer?\n1.Adicionar um novo item ao estoque\n2.Atualizar quantidade de um item\n3.Excluir item do estoque\n"))
 
             if(escolhaServer == 1):
-
 
                 itemAdicionado = int( input("Você irá adicionar um novo:\n1.Cachorro\n2.Gato\n3.Pássaro\n4.Produto\n5.Sair\n"))
 
