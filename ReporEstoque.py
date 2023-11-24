@@ -35,7 +35,9 @@ class ReporEstoque:
                 self.listaEstoque.append(linha)
                 print(f"\n{i+1}.\nRaça: {linha[0]}\nValor: R${linha[1]}\nQuantidade: {linha[2]}\n") 
 
+
         escolhaExclusao = int(input("\nDigite o número do item que será excluído: \n"))
+
         self.listaEstoque.pop(escolhaExclusao-1)
 
         with open(estoque, "w", encoding="utf8") as arquivo: 
@@ -71,13 +73,15 @@ class ReporEstoque:
         for i in self.listaEstoque:
             nome, valor, quantidade = i.split(",")
         
-        novoItem = f"\n{self.nomeNovoItem},{self.valorNovoItem},{self.quantidadeNovoItem}"
+        novoItem = f"{self.nomeNovoItem},{self.valorNovoItem},{self.quantidadeNovoItem}\n"
         
         with open(estoque, "a", encoding="utf-8") as arquivo:
             arquivo.write(novoItem)  
 
         gasto = round((int(self.valorNovoItem)/2) * int(self.quantidadeNovoItem))
         self.gastos(gasto)
+        self.listaEstoque.clear()
+        self.escolhaReposicao()
 
 
 
@@ -118,7 +122,15 @@ class ReporEstoque:
                     print(f"\n{i+1}.\nProduto: {linha[0]}\nQuantidade: {linha[2]}\n") 
 
             itemSelecionado = int(input())
-            self.animalSelecionado(itemSelecionado, item)
+            
+
+            if(itemSelecionado > len(self.listaEstoque) or itemSelecionado <= 0):
+                print("\nOpção Inválida!\n")
+                self.listaEstoque.clear()
+                self.escolhaReposicao()
+                return
+            else:
+                self.animalSelecionado(itemSelecionado, item)
 
 
 
@@ -126,42 +138,52 @@ class ReporEstoque:
         
         while True:
 
-            escolhaServer = int(input("\nO que deseja fazer?\n1.Adicionar um novo item ao estoque\n2.Atualizar quantidade de um item\n3.Excluir item do estoque\n"))
+            escolhaServer = int(input("\nO que deseja fazer?\n1.Adicionar um novo item ao estoque\n2.Atualizar quantidade de um item\n3.Excluir item do estoque\n4.Sair\n"))
 
             if(escolhaServer == 1):
 
-                itemAdicionado = int( input("Você irá adicionar um novo:\n1.Cachorro\n2.Gato\n3.Pássaro\n4.Produto\n5.Sair\n"))
+                itemAdicionado = int( input("Você irá adicionar um novo:\n1.Cachorro\n2.Gato\n3.Pássaro\n4.Produto\n\n"))
 
                 if(itemAdicionado > 5 or itemAdicionado < 1):
                     print("\nOpção inválida!\n")
-                    return self.escolhaReposicao() 
+                    self.listaEstoque.clear()
+                    self.escolhaReposicao() 
+                    return 
 
                 self.adicionarItemEstoque(itemAdicionado)
                 break
 
             elif(escolhaServer == 2):
-                escolhaReposicao = int(input("Reponha o estoque de um dos seguintes recursos:\n1.Animais\n2.Produtos\n"))
 
-                if(escolhaReposicao == 1):
+                while True:
+                    escolhaReposicao = int(input("Reponha o estoque de um dos seguintes recursos:\n1.Animais\n2.Produtos\n"))
 
-                    reposicaoAnimais = int(input("Reponha o estoque de um dos seguintes animais:\n1.Cães\n2.Gatos\n3.Pássaros\n"))
+                    if(escolhaReposicao == 1):
 
-                    if(reposicaoAnimais == 1):
-                        self.reposicaoAnimal("estoqueCaes.csv", 'a')
-                    elif(reposicaoAnimais == 2):
-                        self.reposicaoAnimal("estoqueGatos.csv", 'a')
-                    elif(reposicaoAnimais == 3):
-                        self.reposicaoAnimal("estoquePassaros.csv", 'a')
+                        while True:
+                            reposicaoAnimais = int(input("Reponha o estoque de um dos seguintes animais:\n1.Cães\n2.Gatos\n3.Pássaros\n4.Sair\n"))
 
-                elif(escolhaReposicao == 2):
-                    self.reposicaoAnimal("estoqueProdutos.csv", 'p')
-                break
+                            if(reposicaoAnimais == 1):
+                                self.reposicaoAnimal("estoqueCaes.csv", 'a')
+                                break
+                            elif(reposicaoAnimais == 2):
+                                self.reposicaoAnimal("estoqueGatos.csv", 'a')
+                                break
+                            elif(reposicaoAnimais == 3):
+                                self.reposicaoAnimal("estoquePassaros.csv", 'a')
+                                break
+                        break
+
+                    elif(escolhaReposicao == 2):
+                        self.reposicaoAnimal("estoqueProdutos.csv", 'p')
+                        break
+                    break
 
             elif(escolhaServer == 3):
 
                 while True:
                     
-                    excluirItem = int(input("\nEscolha a categoria do item que será excluído:\n1.Cães\n2.Gatos\n3.Pássaros\n4.Produtos"))
+                    excluirItem = int(input("\nEscolha a categoria do item que será excluído:\n1.Cães\n2.Gatos\n3.Pássaros\n4.Produtos\n"))
 
                     if(excluirItem == 1):
                             self.exclusaoItemEstoque("estoqueCaes.csv")
@@ -176,6 +198,7 @@ class ReporEstoque:
                         self.exclusaoItemEstoque("estoqueProdutos.csv")
                         break  
                         
-                            
+            elif(escolhaServer == 4):
+                break               
 
 

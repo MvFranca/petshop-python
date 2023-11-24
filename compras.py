@@ -2,7 +2,6 @@ from itens import Itens
 
 animais = Itens()
 
-
 class Compras:
 
     def opcoesProdutos():
@@ -20,12 +19,18 @@ class Compras:
                 animais.item("estoqueCaes.csv")
                 break
 
-            if(escolhaAnimal == 2):
+            elif(escolhaAnimal == 2):
                 animais.item("estoqueGatos.csv")
                 break
             
-            if(escolhaAnimal == 3):
+            elif(escolhaAnimal == 3):
                 animais.item("estoquePassaros.csv")
+                break
+            
+            elif(escolhaAnimal == 4):
+
+                from layouts import Layouts
+                Layouts.opcoesMenuInicial()
                 break
 
             else:

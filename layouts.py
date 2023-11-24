@@ -8,7 +8,6 @@ class Layouts:
 
         while True:
 
-
             menuInitial = int(input("\nO que você deseja fazer? \n1. Comprar um pet.\n2.Comprar um produto para o meu pet.\n3.Serviços para o pet.\n4. Sair\n"))
             
             if(menuInitial == 1):
@@ -20,8 +19,7 @@ class Layouts:
                 break
 
             elif(menuInitial == 3):
-                print("calma lá")
-                break
+                print("Função indisponível no momento!\n")
 
             elif(menuInitial == 4):
                 break

@@ -69,13 +69,12 @@ class user:
 
         for i in self.listaUsers:
             nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
-            print(f"\ncpf: {cpf}\n")
             if(cpf == self.cpf and senha == self.senha):
                 self.cadastrado = True
                 break
-            else:
-                print("\nDados incorretos!\n")
-                break
+        if(self.cadastrado == False):
+            print("\nDados incorretos!\n")
+        
         
 
     
