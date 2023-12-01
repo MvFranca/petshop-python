@@ -9,13 +9,12 @@ class user:
        self.cadastrado = False
 
     def verificacao(self, userAdd):
-        with open("clientes.txt", "r", encoding="utf-8") as arquivo:
+        with open("./clientes/clientes.txt", "r", encoding="utf-8") as arquivo:
             c = arquivo.readlines()
         
         for i in c: 
 
             i.replace("\n", "") 
-
             nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
             
             usuario = {
@@ -28,7 +27,7 @@ class user:
             }
 
             if(self.cpf == usuario['cpf']):
-                return print("Usuário já cadastrado!")
+                return print("\nUsuário já cadastrado!\n")
 
         
         self.cadastrado = True
@@ -37,7 +36,7 @@ class user:
 
     def addClientes(self, userAdd):       
 
-        with open("clientes.txt", "a", encoding="utf-8") as arquivo:
+        with open("./clientes/clientes.txt", "a", encoding="utf-8") as arquivo:
             arquivo.write(userAdd)        
       
 
@@ -55,10 +54,10 @@ class user:
 
     def login(self):
         
-        self.cpf = input("Digite seu cpf:\n")
+        self.cpf = input("\nDigite seu cpf:\n")
         self.senha = input("Digite sua senha:\n")
 
-        with open("clientes.txt", "r", encoding="utf-8") as arquivo:
+        with open("./clientes/clientes.txt", "r", encoding="utf-8") as arquivo:
             c = arquivo.readlines()
         
         for i in c: 

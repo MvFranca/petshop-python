@@ -13,17 +13,17 @@ class Itens:
          
         if(num > len(self.listaItens) or num <= 0):
             print("\nOpção Inválida!\n")
-            from layouts import Layouts
-            Layouts.opcoesMenuInicial()
+            from layouts import opcoesMenuInicial
+            opcoesMenuInicial()
             return
 
         animalSelecionado = self.listaItens[num-1]
 
         if(int(animalSelecionado[2]) <= 0):
-            from layouts import Layouts
+            from layouts import opcoesMenuInicial
             print("\nITEM ESGOTADO!\n")
             self.listaItens.clear()
-            Layouts.opcoesMenuInicial()
+            opcoesMenuInicial()
             return
 
         else: 
@@ -41,14 +41,14 @@ class Itens:
 
             Receita.ganhos(int(animalSelecionado[1])) 
 
-            from layouts import Layouts   
+            from layouts import opcoesMenuInicial   
 
-            Layouts.opcoesMenuInicial()
+            opcoesMenuInicial()
 
 
     def item(self, animal):
         self.listaItens.clear()
-        print("\nO que deseja comprar?\n")
+        print("\n\nO que deseja comprar?\n")
 
         with open(animal, "r", encoding="utf8") as arquivo:
             arquivo_csv = csv.reader(arquivo, delimiter=",")

@@ -1,11 +1,11 @@
 from usuario import user
-from layouts import Layouts
+from layouts import opcoesMenuInicial
 
-usuario = user()
 
 while True:  
     escolha = int(input("1.Login\n2.Cadastro\n"))
-
+    usuario = user()
+    
     if(escolha == 1):
         usuario.login()
 
@@ -15,7 +15,7 @@ while True:
     if(usuario.cadastrado):
         break
     
-Layouts.opcoesMenuInicial()
+opcoesMenuInicial()
 
 
 

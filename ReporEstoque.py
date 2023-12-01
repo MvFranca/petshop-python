@@ -8,6 +8,7 @@ class ReporEstoque:
         self.listaEstoque = [] * 100
         self.nomeNovoItem = ''
         self.valorNovoItem = ''
+        self.custo = ''
         self.quantidadeNovoItem = ''
         self.receita = [] * 10
 
@@ -35,24 +36,25 @@ class ReporEstoque:
     def adicionarItemEstoque(self, escolha):
 
         if(escolha == 1):
-            estoque = "estoqueCaes.csv"
+            estoque = "./estoque/estoqueCaes.csv"
         elif(escolha == 2):
-            estoque = "estoqueGatos.csv"
+            estoque = "./estoque/estoqueGatos.csv"
         elif(escolha == 3):
-            estoque = "estoquePassaros.csv"
+            estoque = "./estoque/estoquePassaros.csv"
         elif(escolha == 4):
-            estoque = "estoqueProdutos.csv"
+            estoque = "./estoque/estoqueProdutos.csv"
 
-        self.nomeNovoItem = input("Digite o nome/raça do item que será adicionado:\n ")
-        self.valorNovoItem = input(f"Digite o valor d@ {self.nomeNovoItem}: \n")
-        self.quantidadeNovoItem = input(f"Digite a quantidade que será adicionada ao estoque: \n")
+        self.nomeNovoItem = input("\nDigite o nome/raça do item que será adicionado:\n ")
+        self.valorNovoItem = input(f"\nDigite o preço de venda d@ {self.nomeNovoItem}: \n")
+        self.custo = input(f"\nDigite o custo de compra d@ {self.nomeNovoItem}: \n")
+        self.quantidadeNovoItem = input(f"\nDigite a quantidade que será adicionada ao estoque: \n")
 
         novoItem = f"{self.nomeNovoItem},{self.valorNovoItem},{self.quantidadeNovoItem}\n"
         
         with open(estoque, "a", encoding="utf-8") as arquivo:
             arquivo.write(novoItem)  
 
-        gasto = round((int(self.valorNovoItem)/2) * int(self.quantidadeNovoItem))
+        gasto = round((int(self.custo)) * int(self.quantidadeNovoItem))
         Receita.gastos(gasto)
         self.listaEstoque.clear()
         self.escolhaReposicao()
@@ -65,7 +67,7 @@ class ReporEstoque:
 
         gasto = round((int(self.listaEstoque[animalSelecionado-1][1])/2) * quantidade)
 
-        self.gastos(gasto)
+        Receita.gastos(gasto)
 
 
         self.listaEstoque[animalSelecionado-1][2] = str(novaQuantidade )
@@ -89,9 +91,9 @@ class ReporEstoque:
                 self.listaEstoque.append(linha)
 
                 if(tipo == 'a'):
-                    print(f"\n{i+1}.\nRaça: {linha[0]}\nQuantidade: {linha[2]}\n") 
+                    print(f"\n{i+1}.\nRaça: {linha[0]}\nQuantidade: {linha[2]}\nCusto: R${int(linha[1])/2}\n") 
                 elif(tipo == 'p'):
-                    print(f"\n{i+1}.\nProduto: {linha[0]}\nQuantidade: {linha[2]}\n") 
+                    print(f"\n{i+1}.\nProduto: {linha[0]}\nQuantidade: {linha[2]}\nCusto: R${int(linha[1])/2}\n") 
 
             itemSelecionado = int(input())
             
