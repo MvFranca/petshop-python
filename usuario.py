@@ -6,7 +6,6 @@ class user:
        self.idadeDono = ''
        self.celular = ''
        self.cidade = ''
-       self.listaUsers = [] * 200
        self.cadastrado = False
 
     def verificacao(self, userAdd):
@@ -14,10 +13,9 @@ class user:
             c = arquivo.readlines()
         
         for i in c: 
-            cliente = i.replace("\n", "") 
-            self.listaUsers.append(cliente)  
 
-        for i in self.listaUsers:
+            i.replace("\n", "") 
+
             nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
             
             usuario = {
@@ -64,14 +62,13 @@ class user:
             c = arquivo.readlines()
         
         for i in c: 
-            cliente = i.replace("\n", "") 
-            self.listaUsers.append(cliente)  
 
-        for i in self.listaUsers:
+            i.replace("\n", "") 
             nome, cpf, idade, numero_telefone, cidade, senha = i.split(",")
             if(cpf == self.cpf and senha == self.senha):
                 self.cadastrado = True
                 break
+
         if(self.cadastrado == False):
             print("\nDados incorretos!\n")
         

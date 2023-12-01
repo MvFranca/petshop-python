@@ -1,4 +1,6 @@
 import csv
+from receita import receita
+Receita = receita()
 
 
 class Itens:
@@ -7,46 +9,26 @@ class Itens:
         self.listaItens = [] * 100
         self.receita = [] * 10
 
-    def ganhos(self, valor):
-        with open("receita.csv", "r", encoding="utf-8") as arquivo:
-            c = arquivo.readlines()
-        
-        for i in c: 
-            valores = i.replace("\n", "") 
-            self.receita.append(valores)  
-
-        for i in self.receita:
-            ganhos, gastos, lucro = i.split(",")
-        
-        lucro = (int(ganhos) + valor) - int(gastos)
-        atualizacao = f"{int(ganhos)+valor},{gastos},{lucro}"
-        
-        with open("receita.csv", "w", encoding="utf-8") as arquivo:
-            arquivo.write(f"{atualizacao}\n")
-
-
     def pegarProduto(self, num, animal):
          
-        caoSelecionado = self.listaItens[num-1]
+        if(num > len(self.listaItens) or num <= 0):
+            print("\nOpção Inválida!\n")
+            from layouts import Layouts
+            Layouts.opcoesMenuInicial()
+            return
 
-        if(int(caoSelecionado[2]) <= 0):
+        animalSelecionado = self.listaItens[num-1]
+
+        if(int(animalSelecionado[2]) <= 0):
             from layouts import Layouts
             print("\nITEM ESGOTADO!\n")
             self.listaItens.clear()
             Layouts.opcoesMenuInicial()
             return
 
-        else:
-            if(num > len(self.listaItens) or num <= 0):
+        else: 
 
-                print("\nOpção Inválida!\n")
-
-                from layouts import Layouts
-                Layouts.opcoesMenuInicial()
-                return 
-
-            caoSelecionado[2] = int(caoSelecionado[2]) - 1
-
+            animalSelecionado[2] = int(animalSelecionado[2]) - 1
 
             with open(animal, "w", encoding="utf-8") as arquivo:       
                 for i in self.listaItens:
@@ -57,7 +39,7 @@ class Itens:
 
             print("\nITEM COMPRADO COM SUCESSO!\n")
 
-            self.ganhos(int(caoSelecionado[1])) 
+            Receita.ganhos(int(animalSelecionado[1])) 
 
             from layouts import Layouts   
 
@@ -75,9 +57,9 @@ class Itens:
                 self.listaItens.append(linha)
                 print(f"\n{i+1}.\nRaça: {linha[0]}\nValor: R${linha[1]}\n")  
             
-            escolhaCachorro = int(input())
+            escolhaAnimal = int(input())
 
-            self.pegarProduto(escolhaCachorro, animal)
+            self.pegarProduto(escolhaAnimal, animal)
 
 
 
